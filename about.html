@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Youssef Abdelhamed</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- أنهاء CSS داخلى – كل الاستايل الجديد هنا -->
+  <style>
+    /* ====== About Grid Layout ====== */
+    .top-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* 1) اللوجو Card – sticky لحد آخر مربعة */
+    .logo-card {
+      position: sticky;
+      top: 100px;          /* بعد الـ navbar مباشرة */
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+      height: max-content;
+    }
+
+    /* دائرة ملى الورا + لوجو */
+    .avatar-circle {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1.5rem;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .avatar-circle img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+    }
+
+    .profile-name  {font-size: 1.5rem; font-weight: 700; margin-bottom: .5rem;}
+    .profile-title {color: var(--primary); font-weight: 600; margin-bottom: 1rem;}
+
+    .profile-info {display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.5rem;}
+    .info-item    {display: flex; align-items: center; gap: .5rem; font-size: .9rem; color: var(--text-light);}
+    .info-item i  {color: var(--primary); width: 16px;}
+
+    .profile-social {display: flex; justify-content: center; gap: 1rem;}
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: grid; place-items: center; text-decoration: none;
+      transition: var(--transition);
+    }
+    .social-btn:hover {transform: translateY(-2px); box-shadow: var(--shadow); background: var(--primary-dark);}
+
+    /* 2) مرببات اليمين */
+    .right-cards {display: flex; flex-direction: column; gap: 2rem;}
+
+    .card-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .card-box:hover {transform: translateY(-5px); box-shadow: var(--shadow-lg);}
+
+    .card-title {
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;
+      color: var(--primary); display: flex; align-items: center; gap: .5rem;
+    }
+    .card-content {color: var(--text-light); line-height: 1.7;}
+    .highlight {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; font-weight: 600;
+    }
+
+    .metric-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1.5rem;}
+    .metric-item {text-align: center; padding: 1rem; background: var(--bg); border-radius: 12px; border: 1px solid var(--border);}
+    .metric-value {font-size: 1.5rem; font-weight: 800; color: var(--primary); display: block;}
+    .metric-label {font-size: .8rem; color: var(--text-light); margin-top: .25rem;}
+
+    /* 3) الخبرة بعرض الصفحة */
+    .timeline-section {margin-top: 4rem;}
+    .timeline {position: relative; max-width: 800px; margin: 0 auto;}
+    .timeline::before {content: ""; position: absolute; left: 30px; top: 0; bottom: 0; width: 2px; background: var(--primary);}
+    .timeline-item {position: relative; margin-bottom: 2rem; margin-left: 80px; background: var(--surface); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); opacity: 0; transform: translateY(30px);}
+    .timeline-item.show {opacity: 1; transform: translateY(0);}
+    .timeline-item:hover {transform: translateY(-3px); box-shadow: var(--shadow-lg);}
+    .timeline-item::before {content: ""; position: absolute; left: -60px; top: 2rem; width: 16px; height: 16px; background: var(--accent); border: 4px solid var(--primary); border-radius: 50%;}
+    .timeline-date {font-size: .9rem; color: var(--primary); font-weight: 600; margin-bottom: .5rem;}
+    .timeline-title {font-size: 1.2rem; font-weight: 700; margin-bottom: .5rem;}
+    .timeline-company {color: var(--accent); font-weight: 600; margin-bottom: 1rem;}
+    .timeline-description {color: var(--text-light); line-height: 1.6;}
+    .achievement-list {list-style: none; margin-top: 1rem;}
+    .achievement-list li {position: relative; padding-left: 1.5rem; margin-bottom: .5rem; color: var(--text-light);}
+    .achievement-list li::before {content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: bold;}
+
+    /* Responsive */
+    @media (max-width: 992px) {.top-grid {grid-template-columns: 1fr;} .logo-card {position: static;}}
+    @media (max-width: 768px) {.timeline::before {left: 20px;} .timeline-item {margin-left: 60px;} .timeline-item::before {left: -40px;}}
+  </style>
+</head>
+<body class="page-offset">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-chart-line"></i> Y.A</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="skills.html" class="nav-link">Skills & Certs</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+      <button id="mobileMenuToggle" class="mobile-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">About Me</h1>
+        <p class="page-subtitle">Get to know the person behind the data – my journey, expertise, and passion for transforming complex information into actionable insights.</p>
+      </div>
+
+      <!-- ====== TOP GRID: Logo-Box + 3 Cards ====== -->
+      <div class="top-grid">
+
+        <!-- 1) Logo Card (Sticky) -->
+        <div class="logo-card">
+          <div class="circle logo" >
+            <div>
+            <img src="images/Logo.png" width="210PX" alt="Youssef Abdelhamed Logo" >
+            </div>
+          </div>
+          <h2 class="profile-name">Youssef Abdelhamed</h2>
+          <p class="profile-title">Data Analyst & BI Expert</p>
+
+          <div class="profile-info">
+            <div class="info-item"><i class="fas fa-envelope"></i><span>youssef.abdelhamed70@gmail.com</span></div>
+            <div class="info-item"><i class="fas fa-phone"></i><span>+20 106 341 4893</span></div>
+            <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>Giza, Egypt</span></div>
+            <div class="info-item"><i class="fas fa-graduation-cap"></i><span>Faculty of Law, Helwan University</span></div>
+          </div>
+
+          <div class="profile-social">
+            <a href="https://linkedin.com/in/youssefabdelhamed" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/youssef55430" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:youssef.abdelhamed70@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <!-- 2) Right Cards Wrapper -->
+        <div class="right-cards">
+          <!-- Professional Summary -->
+          <div class="card-box">
+            <div class="content-card">
+              <h3 class="card-title"><i class="fas fa-user-tie"></i> Professional Summary</h3>
+              <div class="card-content">
+                <p>I am a passionate <span class="highlight">Data Analyst</span> with advanced expertise in Power BI, SQL, and Python, with a proven track record of enhancing data accuracy by <span class="highlight">22%</span>, automating ETL processes to reduce preparation time by <span class="highlight">45%</span>, and developing KPI dashboards that drive business decisions across <span class="highlight">HR, Real Estate, and Telecom</span> domains.</p>
+                <p style="margin-top:1rem">Known for strong analytical thinking, attention to detail, and effective cross-functional communication, I specialize in transforming complex data into actionable insights that drive strategic business decisions.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Achievements -->
+          <div class="card-box">
+            <div class="content-card">
+              <h3 class="card-title"><i class="fas fa-trophy"></i> Key Achievements</h3>
+              <div class="card-content">
+                <div class="metric-grid">
+                  <div class="metric-item"><span class="metric-value stat-number" data-count="22" data-type="percent">0%</span><span class="metric-label">Data Accuracy Improvement</span></div>
+                  <div class="metric-item"><span class="metric-value stat-number" data-count="45" data-type="percent">0%</span><span class="metric-label">ETL Time Reduction</span></div>
+                  <div class="metric-item"><span class="metric-value stat-number" data-count="18" data-type="percent">0%</span><span class="metric-label">Predictive Reliability Improvement</span></div>
+                  <div class="metric-item"><span class="metric-value stat-number" data-count="12" data-type="percent">0%</span><span class="metric-label">Procurement Cost Reduction</span></div>
+                  <div class="metric-item"><span class="metric-value stat-number" data-count="85" data-type="percent">0%</span><span class="metric-label">Vodafone NPS</span></div>
+                  <div class="metric-item"><span class="metric-value stat-number" data-count="9" >0%</span><span class="metric-label">Courses</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Core Competencies -->
+          <div class="card-box">
+            <div class="content-card">
+              <h3 class="card-title"><i class="fas fa-cogs"></i> Core Competencies</h3>
+              <div class="card-content">
+                <ul style="list-style:none;padding:0">
+                  <li style="margin-bottom:.5rem;padding-left:1.5rem;position:relative"><span style="position:absolute;left:0;color:var(--primary)">▸</span>Advanced Data Analysis & Visualization</li>
+                  <li style="margin-bottom:.5rem;padding-left:1.5rem;position:relative"><span style="position:absolute;left:0;color:var(--primary)">▸</span>Business Intelligence & Dashboard Development</li>
+                  <li style="margin-bottom:.5rem;padding-left:1.5rem;position:relative"><span style="position:absolute;left:0;color:var(--primary)">▸</span>ETL Process Automation & Optimization</li>
+                  <li style="margin-bottom:.5rem;padding-left:1.5rem;position:relative"><span style="position:absolute;left:0;color:var(--primary)">▸</span>Statistical Analysis & Predictive Modeling</li>
+                  <li style="margin-bottom:.5rem;padding-left:1.5rem;position:relative"><span style="position:absolute;left:0;color:var(--primary)">▸</span>Cross-functional Collaboration & Communication</li>
+                  <li style="padding-left:1.5rem;position:relative"><span style="position:absolute;left:0;color:var(--primary)">▸</span>Problem-Solving & Analytical Thinking</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== Professional Experience (Full Width) ====== -->
+      <div class="timeline-section">
+        <h2 style="text-align:center;font-size:2rem;font-weight:700;margin-bottom:3rem;color:var(--primary)">Professional Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date" style="color:#000">June 2025 – July 2025</div>
+            <h3 class="timeline-title">Data Analyst Intern</h3>
+            <p class="timeline-company">Truvian Intelligence</p>
+            <div class="timeline-description">
+              <p>Enhanced data accuracy by 22% through rigorous validation processes and automated Power BI refresh cycles.</p>
+              <ul class="achievement-list">
+                <li>Improved data accuracy by 22% through advanced validation techniques</li>
+                <li>Automated Power BI refresh cycles, reducing manual intervention by 60%</li>
+                <li>Developed KPI dashboards for cross-functional team meetings</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date" style="color:#000">May 2024 – Present</div>
+            <h3 class="timeline-title">Freelance Data Analyst</h3>
+            <p class="timeline-company">Independent Consultant</p>
+            <div class="timeline-description">
+              <p>Delivered data analysis services to multiple clients, enhancing insight accuracy by 20%.</p>
+              <ul class="achievement-list">
+                <li>Enhanced insight accuracy by 20% through advanced analytical methods</li>
+                <li>Automated ETL workflows using Python, reducing processing time by 45%</li>
+                <li>Built forecasting models with 18% improvement in predictive reliability</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date" style="color:#000">April 2023 – May 2024</div>
+            <h3 class="timeline-title">Purchasing Manager</h3>
+            <p class="timeline-company">UDS</p>
+            <div class="timeline-description">
+              <p>Optimized procurement processes and supplier relationships, achieving significant cost reductions.</p>
+              <ul class="achievement-list">
+                <li>Decreased procurement costs by 12% through strategic vendor negotiations</li>
+                <li>Increased supplier efficiency by 25% through process optimization</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-date" style="color:#000">April 2021 – November 2022</div>
+            <h3 class="timeline-title">Call Center Representative</h3>
+            <p class="timeline-company">Vodafone Egypt</p>
+            <div class="timeline-description">
+              <p>Delivered exceptional customer service in a high-volume environment, consistently exceeding performance targets.</p>
+              <ul class="achievement-list">
+                <li>Achieved 85% customer satisfaction rating consistently</li>
+                <li>Reduced average handling time by 18% through process optimization</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Floating -->
+  <footer class="footer-float">
+    <p>© 2025 Youssef Abdelhamed</p>
+    <div class="footer-icons">
+      <a href="https://www.linkedin.com/in/youssef-abdelhamed" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/youssef55430" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/201159680509" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:youssef.abdelhamed70@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+  <script src="script.js"></script>
+</body>
+</html>

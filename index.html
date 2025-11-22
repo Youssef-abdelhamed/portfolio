@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Youssef Abdelhamed - Data Analyst</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body class="page-offset">
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo"><i class="fas fa-chart-line"></i> Y.A</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="skills.html" class="nav-link">Skills & Certs</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+      <button id="mobileMenuToggle" class="mobile-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Hi, I'm <span class="gradient-text">Youssef Abdelhamed</span></h1>
+        <!-- أنيميشن الجمل المتغيّرة -->
+        <p class="hero-title">
+          <span id="typingText">Data Analyst & BI Developer</span>
+          <span class="cursor">|</span>
+        </p>
+        <p class="hero-desc">I specialize in transforming complex data into clear, actionable insights that empower organizations to make smarter, data-driven decisions. My experience spans HR analytics, real estate intelligence, and telecom performance analysis—delivering dashboards, predictive models, and end-to-end analytical solutions that create real business impact.</p>
+        <div class="hero-buttons">
+          <a href="projects.html" class="btn-primary">View Projects</a>
+          <a href="contact.html" class="btn-secondary">Hire Me</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="images/profile.jpg" alt="Youssef Abdelhamed" />
+        <div class="about-badge">
+          <i class="fas fa-award"></i>
+          <p>Google Data Analytics Professional</p>
+      </div>
+      <div>
+        <div class="about-badge">
+          <i class="fas fa-award"></i>
+          <p>Machinfy Data Analysis Professional</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats">
+        <div class="stat-card"><span class="stat-number" data-count="22" data-type="percent">0</span><span class="stat-label">Data Accuracy Improvement</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="45" data-type="percent">0</span><span class="stat-label">ETL Time Reduction</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="6">0</span><span class="stat-label">Professional Certificates</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="5">0</span><span class="stat-label">Industry Sectors</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="20" data-type="plus">0</span><span class="stat-label">Completed Projects</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="1" data-type="plus">0</span><span class="stat-label">Years Of Experience</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="91" data-type="percent">0</span><span class="stat-label">Client Satisfaction</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="18" data-type="percent">0</span><span class="stat-label">Predictive Reliability Improvement</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Floating -->
+  <footer class="footer-float">
+    <p>© 2025 Youssef Abdelhamed</p>
+    <div class="footer-icons">
+      <a href="https://www.linkedin.com/in/youssef-abdelhamed" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/youssef55430" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/201159680509" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:youssef.abdelhamed70@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+  <!-- أنيميشن الجمل المتغيّرة -->
+  <script>
+    const sentences = [
+      "Data Analyst & BI Developer",
+      "Turning Data into Decisions",
+      "Power BI | SQL | Python",
+      "Your Growth Partner"
+    ];
+    let index = 0;
+    let charIndex = 0;
+    let currentSentence = "";
+    let isDeleting = false;
+    const typingElement = document.getElementById("typingText");
+    const cursor = document.querySelector(".cursor");
+
+    function typeEffect() {
+      const fullSentence = sentences[index];
+      if (isDeleting) {
+        currentSentence = fullSentence.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        currentSentence = fullSentence.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      typingElement.textContent = currentSentence;
+
+      let speed = isDeleting ? 50 : 100;
+
+      if (!isDeleting && currentSentence === fullSentence) {
+        speed = 1500; // pause before delete
+        isDeleting = true;
+      } else if (isDeleting && currentSentence === "") {
+        isDeleting = false;
+        index = (index + 1) % sentences.length;
+        charIndex = 0;
+        speed = 300;
+      }
+
+      setTimeout(() => typeEffect(), speed);
+    }
+
+    window.addEventListener("load", typeEffect);
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
